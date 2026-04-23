@@ -494,7 +494,7 @@ function updateOwnerTypeVisibility() {
 async function fetchStats() {
     try {
         showLoading(true);
-        const data = await api.get('/github-stats/api/stats');
+        const data = await api.get('/api/stats');
         githubUsername = data.github_username || '';
         githubOrg = data.github_org || '';
         
@@ -789,7 +789,7 @@ async function withButtonLoading(button, loadingText, action) {
 async function runSync() {
     await withButtonLoading(syncButton, 'Syncing...', async () => {
         try {
-            const result = await api.get('/github-stats/api/sync');
+            const result = await api.get('/api/sync');
             showToast('Sync completed successfully!', 'success');
             await fetchStats();
         } catch (error) {
@@ -808,7 +808,7 @@ function showLoading(show) {
 // Repository Management Functions
 async function fetchTrackedRepos() {
     try {
-        const data = await api.get('/github-stats/api/tracked-repos');
+        const data = await api.get('/api/tracked-repos');
         return data.repositories;
     } catch (error) {
         console.error('Error fetching tracked repos:', error);
@@ -819,7 +819,7 @@ async function fetchTrackedRepos() {
 
 async function addTrackedRepo(repoName, ownerType = 'user') {
     try {
-        const result = await api.post('/github-stats/api/tracked-repos/add', { 
+        const result = await api.post('/api/tracked-repos/add', { 
             repo_name: repoName,
             owner_type: ownerType
         });
@@ -834,7 +834,7 @@ async function addTrackedRepo(repoName, ownerType = 'user') {
 
 async function removeTrackedRepo(repoName) {
     try {
-        const result = await api.post('/github-stats/api/tracked-repos/remove', { repo_name: repoName });
+        const result = await api.post('/api/tracked-repos/remove', { repo_name: repoName });
         showToast(result.message, 'success');
         return true;
     } catch (error) {
