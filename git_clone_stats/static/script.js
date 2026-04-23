@@ -184,7 +184,7 @@ function switchView(view) {
 // Chart Data Management
 async function fetchChartData(days = 30, repo = null) {
     try {
-        let url = `/github-stats/api/chart-data?days=${days}`;
+        let url = `/chart-data?days=${days}`;
         if (repo) {
             url += `&repo=${encodeURIComponent(repo)}`;
         }
