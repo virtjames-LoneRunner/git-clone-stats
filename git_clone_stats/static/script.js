@@ -85,7 +85,7 @@ function formatDate(dateString) {
 // Load repository card template
 async function loadTemplate() {
     try {
-        const response = await fetch('/static/repo-card-template.html');
+        const response = await fetch('static/repo-card-template.html');
         if (!response.ok) throw new Error('Failed to load template');
         repoCardTemplate = await response.text();
     } catch (error) {
@@ -681,7 +681,7 @@ function createRepoCard(repo, index) {
     card.className = 'repo-card';
     card.style.animationDelay = `${index * 0.1}s`;
 
-    const badgeUrl = `/badge/${repo.name}/total.svg`;
+    const badgeUrl = `badge/${repo.name}/total.svg`;
     const markdownCode = `[![Clones](${window.location.origin}${badgeUrl})](https://github.com/${githubUsername}/${repo.name}/graphs/traffic)`;
 
     // Prepare template data
