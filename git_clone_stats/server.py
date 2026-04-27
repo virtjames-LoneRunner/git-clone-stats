@@ -111,13 +111,13 @@ class StatsRequestHandler(http.server.SimpleHTTPRequestHandler):
         query_params = urllib.parse.parse_qs(parsed_path.query)
 
         # Match API endpoints
-        if path == "/github-stats/api/stats":
+        if path == "/api/stats":
             self.send_stats()
-        elif path == "/github-stats/api/sync":
+        elif path == "/api/sync":
             self.send_sync_response()
-        elif path == "/github-stats/api/tracked-repos":
+        elif path == "/api/tracked-repos":
             self.send_tracked_repos()
-        elif path == "/github-stats/api/repo/history":
+        elif path == "/api/repo/history":
             repo_name = query_params.get('repo', [None])[0]
             history_type = query_params.get('type', ['clones'])[0]
             days = int(query_params.get('days', [30])[0])
@@ -125,7 +125,7 @@ class StatsRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_repo_history(repo_name, history_type, days)
             else:
                 self._send_json_error("Missing 'repo' parameter", HTTPStatus.BAD_REQUEST)
-        elif path == "/github-stats/api/export":
+        elif path == "/api/export":
             self.send_database_export()
         elif match := re.match(r"/badge/(.+)/total\.svg", path):
             repo_name = match.group(1)
@@ -147,11 +147,11 @@ class StatsRequestHandler(http.server.SimpleHTTPRequestHandler):
         parsed_path = urllib.parse.urlparse(self.path)
         path = parsed_path.path
 
-        if path == "/github-stats/api/tracked-repos/add":
+        if path == "/api/tracked-repos/add":
             self.add_tracked_repo()
-        elif path == "/github-stats/api/tracked-repos/remove":
+        elif path == "/api/tracked-repos/remove":
             self.remove_tracked_repo()
-        elif path == "/github-stats/api/import":
+        elif path == "/api/import":
             self.import_database()
         else:
             self.send_error(HTTPStatus.NOT_FOUND, "Endpoint not found")

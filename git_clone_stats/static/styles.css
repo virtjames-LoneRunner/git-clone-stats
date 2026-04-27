@@ -450,8 +450,14 @@ body {
 
 /* Repos Grid */
 .repos-grid {
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
+    /* gap: 1.5rem; */
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    /* auto-fill creates fixed-size tracks rather than stretching them */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 320px)); 
+    /* Centers the cards if there isn't enough space to fill a row */
+    justify-content: center; 
     gap: 1.5rem;
 }
 
